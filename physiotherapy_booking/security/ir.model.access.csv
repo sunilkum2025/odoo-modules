@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_patient_history_all,patient.history,model_patient_history,,1,1,1,1
+access_physio_booking_all,physio.booking,model_physio_booking,,1,1,1,0
+access_report_today_physio_booking_all,report.today.physio.booking,model_report_today_physio_booking,,1,1,1,1
+access_report_physio_booking_all,report.physio.booking,model_report_physio_booking,,1,1,1,0
+access_patient_treatment_image_all,patient.treatment.image,model_patient_treatment_image,,1,1,1,1
+access_patient_treatment_all,patient.treatment,model_patient_treatment,,1,1,1,0
+access_physio_service,physio.service,model_physio_service,,1,1,1,1

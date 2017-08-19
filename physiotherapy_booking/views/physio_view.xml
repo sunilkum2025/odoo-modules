@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <record id="physio_booking_form" model="ir.ui.view">
+            <field name="name">physio_booking_form.form</field>
+            <field name="model">physio.booking</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                       <button name="booking_approve" states="draft" string="Approve" class="oe_highlight" type="object"/>
+                       <button name="booking_reject" states="draft" string="Reject" class="oe_highlight" type="object"/>
+                       <field name="state" widget="statusbar" statusbar_visible="draft,approved,rejected"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="is_existing"/>
+                                <field name="name" required="True"/>
+                                <field name="phone"/>
+                                <field name="dob" required="True"/>
+                                <field name="gender"/>
+                                <field name="services" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="patient_id" attrs="{'required':[('is_existing','=',True)],'readonly':[('is_existing','=',False)]}"/>
+                                <field name="ref" required="True"/>
+                                <field name="email"/>
+                                <field name="doctor_id" required="True"/>
+                                <field name="date" required="True"/>
+
+                                <field name="start_time" required="True"/>
+                                <field name="end_time" required="True"/>
+
+                                <field name="user_id" readonly="1"/>
+                                <field name="lang" invisible="1"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="state" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="physio_booking_tree" model="ir.ui.view">
+            <field name="name">physio.booking.tree.view</field>
+            <field name="model">physio.booking</field>
+            <field name="arch" type="xml">
+                <tree colors="#046a8c:state=='draft';#f20b07:state=='rejected';#01471f:state=='approved'">
+                    <field name="name"/>
+                    <field name="ref"/>
+                    <field name="doctor_id"/>
+                    <field name="date"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="physio_booking_calendar_view">
+            <field name="name">physio.booking.calendar.view</field>
+            <field name="model">physio.booking</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar color="doctor_id" date_start="start_time" date_stop="end_time" string="Appointments Details">
+                    <field name="doctor_id"/>
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="physio_booking_action" model="ir.actions.act_window">
+            <field name="name">Make Appointments</field>
+            <field name="res_model">physio.booking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+        </record>
+
+     <menuitem id="physio_management_appts" name="Appointments" parent="clinic_root"/>
+     <menuitem id="menu_physio_appts" name="Make Appointments" parent="physio_management_appts" action="physio_booking_action" sequence="1"/>
+
+        <record id="physio_booking_calendar_action" model="ir.actions.act_window">
+            <field name="name">Appointments Calendar</field>
+            <field name="res_model">physio.booking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar</field>
+        </record>
+        <menuitem id="menu_physio_booking_calendar" parent="physio_management_appts" name="Appointments Calendar" action="physio_booking_calendar_action" sequence="5"/>
+
+
+    </data>
+</openerp>

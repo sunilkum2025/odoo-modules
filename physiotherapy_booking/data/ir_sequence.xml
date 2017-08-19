@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="seq_patient_treatment" model="ir.sequence">
+        <field name="name">Treament No.</field>
+        <field name="code">patient.treatment</field>
+        <field name="prefix">TRNO</field>
+        <field name="padding">4</field>
+    </record>
+
+</odoo>

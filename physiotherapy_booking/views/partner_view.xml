@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+        <record id="view_partner_form_ext001" model="ir.ui.view">
+            <field name="name">res.partner.form.ext001</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="1"/>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <page name="sales_purchases" position="after">
+                    <page name="tretment_history" String="History">
+		        <group colspan="4" col="4">
+		            <field name="history_ids" nolabel="1">
+				<tree string="History Lines" editable="bottom">
+				    <field name="name"/>
+				    <field name="doctor_id"/>
+				    <field name="history_date"/>
+				    <field name="description" widget="text"/>
+				</tree>
+                            </field>
+		        </group>
+                   </page>
+                </page>
+            </field>
+        </record>
+</data>
+</openerp>

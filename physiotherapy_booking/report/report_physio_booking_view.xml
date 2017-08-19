@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model ="ir.ui.view" id="report_physio_booking_pivot">
+            <field name="name">report.physio.booking.pivot</field>
+            <field name="model">report.physio.booking</field>
+            <field name="arch" type="xml">
+                <pivot string="Booking Details" disable_linking="True">
+                    <field name="doctor_id" type="row" string="Doctor"/>
+                    <field name="booking_date" interval="month" type="col"/>
+                    <field name="confirm_state" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record model ="ir.ui.view" id="report_physio_booking_graph">
+            <field name="name">report.physio.booking.graph</field>
+            <field name="model">report.physio.booking</field>
+            <field name="arch" type="xml">
+                <graph string="Booking Details">
+                    <field name="doctor_id"/>
+                    <field name="booking_date" interval="month"/>
+                    <field name="confirm_state" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Booking search view -->
+        <record model="ir.ui.view" id="view_report_physio_booking_search">
+            <field name="name">report.physio.booking.search</field>
+            <field name="model">report.physio.booking</field>
+            <field name="arch" type="xml">
+                <search string="Booking Details">
+                    <filter string="New" domain="[('stage_id.name','=','Draft')]"/>
+                    <filter string="Confirm" domain="[('stage_id.name','=','Open')]"/>
+                    <separator/>
+                    <field name="doctor_id" string="Doctor"/>
+                    <newline/>
+                    <group expand="1" string="Group By">
+                        <filter string="Doctor" context="{'group_by':'doctor_id'}"/>
+                        <filter string="Stage" context="{'group_by':'stage_id'}"/>
+                        <separator/>
+                        <filter string="Booking Month" context="{'group_by':'booking_date:month'}" help="Booking Beginning Date"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_report_physio_booking">
+            <field name="name">Booking Analysis</field>
+            <field name="res_model">report.physio.booking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">pivot,graph</field>
+            <field name="search_view_id" ref="view_report_physio_booking_search"/>
+            <field name="context">{}</field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_report_physio_booking_graph">
+            <field name="name">Booking Analysis</field>
+            <field name="res_model">report.physio.booking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="search_view_id" ref="view_report_physio_booking_search"/>
+            <field name="context">{}</field>
+        </record>
+
+<!--
+        <menuitem name="Events" parent="event.menu_reporting_events" action="action_report_event_registration" id="menu_report_event_registration" sequence="3"/>-->
+
+        <record model ="ir.ui.view" id="report_today_physio_booking_pivot">
+            <field name="name">report.today.physio.booking.pivot</field>
+            <field name="model">report.today.physio.booking</field>
+            <field name="arch" type="xml">
+                <pivot string="Today Booking Details" disable_linking="True">
+                    <field name="doctor_id" type="row" string="Doctor"/>
+                    <field name="confirm_state" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record model ="ir.ui.view" id="report_today_physio_booking_graph">
+            <field name="name">report.today.physio.booking.graph</field>
+            <field name="model">report.physio.booking</field>
+            <field name="arch" type="xml">
+                <graph string="Booking Details">
+                    <field name="doctor_id"/>
+                    <field name="confirm_state" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Booking search view -->
+        <record model="ir.ui.view" id="view_report_today_physio_booking_search">
+            <field name="name">report.today.physio.booking.search</field>
+            <field name="model">report.today.physio.booking</field>
+            <field name="arch" type="xml">
+                <search string="Today Booking Details">
+                    <field name="doctor_id" string="Doctor"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_report_today_physio_booking">
+            <field name="name">Today Booking Analysis</field>
+            <field name="res_model">report.today.physio.booking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">pivot,graph</field>
+            <field name="search_view_id" ref="view_report_today_physio_booking_search"/>
+            <field name="context">{}</field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_report_today_physio_booking_graph">
+            <field name="name">Booking Analysis</field>
+            <field name="res_model">report.physio.booking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="search_view_id" ref="view_report_today_physio_booking_search"/>
+            <field name="context">{}</field>
+        </record>
+
+
+    </data>
+</openerp>

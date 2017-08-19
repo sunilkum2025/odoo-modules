@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="board_physio_form" model="ir.ui.view">
+            <field name="name">board.physio.form</field>
+            <field name="model">board.board</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Clinic Board">
+                    <board style="2-1">
+                        <column>
+                            <action name="%(physiotherapy_booking.action_report_physio_booking)d" creatable="false" string="Monthly Appointment  Details"/>
+                            <action name="%(physiotherapy_booking.action_report_physio_booking_graph)d" creatable="false" string="Appointment Details"/>
+                        </column>
+                        <column>
+                            <action name="%(physiotherapy_booking.action_report_today_physio_booking)d" creatable="false" string="Today Appointment Details"/>
+                        </column>
+                    </board>
+                </form>
+            </field>
+        </record>
+
+        <record id="open_board_physio" model="ir.actions.act_window">
+            <field name="name">Clinic Dashboard</field>
+            <field name="res_model">board.board</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="board_physio_form"/>
+        </record>
+
+        <menuitem id="menu_dashboard_physio" name="Dashboard" sequence="2" parent="physiotherapy_booking.clinic_root"/>
+        <menuitem action="open_board_physio" icon="terp-graph" id="menu_board_physio" parent="menu_dashboard_physio" sequence="1"/>
+        <!--<menuitem icon="terp-account" id="medical.medical_root" name="Medical" sequence="14" action="open_board_clinic"/>-->
+
+    </data>
+</openerp>
